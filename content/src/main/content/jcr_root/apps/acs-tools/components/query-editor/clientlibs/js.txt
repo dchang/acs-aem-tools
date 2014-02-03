@@ -1,3 +1,5 @@
 #base=js
 
+mode-querybuilder.js
+snippets-querybuilder.js
 app.js
