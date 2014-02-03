@@ -30,8 +30,8 @@
 </head>
 
 <body>
-    <div id="editor">path=/</div>
-    <div id="output">{}</div>
+    <div id="editor"></div>
+    <div id="output"></div>
 
     <cq:includeClientLib js="query-editor.app" />
 </body>
