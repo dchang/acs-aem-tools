@@ -30,7 +30,10 @@
 </head>
 
 <body>
-    <div id="editor"></div>
+    <div id="editor">type=nt:file
+nodename=*.jar
+orderby=@jcr:content/jcr:lastModified
+orderby.sort=desc</div>
     <div id="output"></div>
 
     <cq:includeClientLib js="query-editor.app" />
