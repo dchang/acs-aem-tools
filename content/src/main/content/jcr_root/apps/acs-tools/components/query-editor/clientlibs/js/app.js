@@ -2,6 +2,11 @@
 
 'use strict';
 
+var source = "type=nt:file\n" +
+             "nodename=*.jar\n" +
+             "orderby=@jcr:content/jcr:lastModified\n" +
+             "orderby.sort=desc";
+
 ace.require("ace/ext/language_tools");
 
 var editor = ace.edit("editor");
@@ -11,6 +16,8 @@ editor.setOptions({
     enableBasicAutocompletion: true,
     enableSnippets: true
 });
+editor.setValue(source, 0);
+//editor.on("change", );
 
 var output = ace.edit("output");
 output.session.setMode("ace/mode/json");

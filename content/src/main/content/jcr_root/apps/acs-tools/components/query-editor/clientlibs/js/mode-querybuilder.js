@@ -38,7 +38,7 @@ ace.define('ace/mode/querybuilder_highlight_rules', function(require, exports, m
                                  "similar|local|" + // Similarity
                                  "type|" + // Type
                                  "tagid", // Other
-            
+
             "constant.language": "full|selective|desc"
         }, "identifier");
 
