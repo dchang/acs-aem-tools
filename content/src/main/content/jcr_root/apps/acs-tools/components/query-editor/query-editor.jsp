@@ -32,6 +32,7 @@
 <body>
     <div id="editor"></div>
     <div id="output"></div>
+    <div class="loader"></div>
 
     <cq:includeClientLib js="query-editor.app" />
 </body>
