@@ -19,21 +19,31 @@
   --%>
 <%@include file="/libs/foundation/global.jsp"%>
 <!doctype html>
-<html ng-app="jspCodeDisplay">
+<html ng-app="qeApp">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Query Editor | ACS AEM Tools</title>
+    <title>Query Editor | ACS AEM Tools</title>
 
-<cq:includeClientLib css="query-editor.app" />
+    <cq:includeClientLib css="query-editor.app" />
 </head>
 
-<body>
-    <div id="editor"></div>
-    <div id="output"></div>
-    <div class="loader"></div>
+<body ng-controller="QueryEditorCtrl" ng-init="refresh()">
+<div class="loader"></div>
 
-    <cq:includeClientLib js="query-editor.app" />
+<div ui-ace="{
+  mode: 'querybuilder',
+  theme: 'monokai',
+  onLoad: initEditor,
+  onChange: refresh
+}" ng-model="source" class="left"></div>
+
+<div ui-ace="{
+  mode: 'json',
+  theme: 'monokai'
+}" ng-model="json" readonly="true" class="right"></div>
+
+<cq:includeClientLib js="query-editor.app" />
 </body>
 </html>

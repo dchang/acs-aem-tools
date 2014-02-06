@@ -1,16 +1,16 @@
-#editor {
-    position: absolute;
+.ace_editor {
+    position: absolute !important;
     top: 0;
-	right: 50%;
+    right: 0;
     bottom: 0;
     left: 0;
 }
 
-#output {
-    position: absolute;
-    top: 0;
-	right: 0;
-    bottom: 0;
+.left {
+    right: 50%;
+}
+
+.right {
     left: 50%;
 }
 

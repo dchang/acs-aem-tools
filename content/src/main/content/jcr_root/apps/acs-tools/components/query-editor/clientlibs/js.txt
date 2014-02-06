@@ -2,4 +2,8 @@
 
 mode-querybuilder.js
 snippets-querybuilder.js
+
 app.js
+controllers.js
+services.js
+directives.js
