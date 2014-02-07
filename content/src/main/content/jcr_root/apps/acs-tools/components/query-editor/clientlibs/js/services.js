@@ -1,3 +1,5 @@
+/*global angular: false, ace: false */
+
 (function () {
 
     'use strict';
@@ -20,8 +22,8 @@
                 apply = angular.isUndefined(apply) ? true : apply; // !!default is true! most suitable to my experience
                 var nthCall = 0;
                 return function () { // intercepting fn
-                    var that = this;
-                    var argz = arguments;
+                    var that = this,
+                        argz = arguments;
                     nthCall++;
                     var later = (function (version) {
                         return function () {
@@ -29,11 +31,11 @@
                                 return fn.apply(that, argz);
                             }
                         };
-                    })(nthCall);
+                    }(nthCall));
                     return $timeout(later, timeout, apply);
                 };
             };
         }
     ]);
 
-})();
+}());

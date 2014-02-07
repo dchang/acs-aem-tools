@@ -17,7 +17,7 @@
   limitations under the License.
   #L%
   --%>
-<%@include file="/libs/foundation/global.jsp"%>
+<%@include file="/libs/foundation/global.jsp" %>
 <!doctype html>
 <html ng-app="qeApp">
 <head>
@@ -26,24 +26,41 @@
 
     <title>Query Editor | ACS AEM Tools</title>
 
-    <cq:includeClientLib css="query-editor.app" />
+    <cq:includeClientLib css="query-editor.app"/>
 </head>
 
-<body ng-controller="QueryEditorCtrl" ng-init="refresh()">
-<div class="loader"></div>
+<body ng-controller="QueryEditorCtrl" ng-init="running = true; refresh()">
 
-<div ui-ace="{
-  mode: 'querybuilder',
-  theme: 'monokai',
-  onLoad: initEditor,
-  onChange: refresh
-}" ng-model="source" class="left"></div>
+<header class="top">
+    <div class="logo">
+        <span><a href="/"><i class="icon-marketingcloud medium"></i></a></span>
+        <span ng-hide="running"><span class="icon-spinner spinner medium"></span></span>
+    </div>
+</header>
 
-<div ui-ace="{
-  mode: 'json',
-  theme: 'monokai'
-}" ng-model="json" readonly="true" class="right"></div>
+<div class="page" role="main">
+    <div class="content">
 
-<cq:includeClientLib js="query-editor.app" />
+        <pre ui-ace="{
+          mode: 'querybuilder',
+          theme: 'monokai',
+          onLoad: initEditor,
+          onChange: refresh
+        }" ng-model="source"></pre>
+
+        <pre ui-ace="{
+          mode: 'json',
+          theme: 'monokai'
+        }" ng-model="json" readonly="true"></pre>
+
+    </div>
+</div>
+
+<footer ui-ace-statusbar="{editor:'test'}">
+    <span ng-show="status.requesting" class="loader"></span>
+    <span ng-hide="status.requesting">Query took {{status.duration / 1000 | number}} seconds</span>
+</footer>
+
+<cq:includeClientLib js="query-editor.app"/>
 </body>
 </html>

@@ -1,6 +1,8 @@
-ace.define('ace/snippets/querybuilder', ['require', 'exports', 'module' ], function(require, exports, module) {
+/*global angular: false, ace: false */
 
-exports.snippetText = "";
-exports.scope = "querybuilder";
+ace.define('ace/snippets/querybuilder', ['require', 'exports', 'module' ], function (require, exports, module) {
+
+    exports.snippetText = "";
+    exports.scope = "querybuilder";
 
 });

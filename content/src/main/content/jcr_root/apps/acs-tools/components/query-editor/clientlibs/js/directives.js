@@ -1,15 +1,20 @@
-(function() {
+/*global angular: false, ace: false */
+
+(function () {
 
     'use strict';
 
     var module = angular.module('qeDirectives', []);
 
-//    module.directive('editor', function() {
-//        return  {
-//            restrict: 'E',
-//            transclude: true,
-//            template: '<div ng-transclude></div>'
-//        };
-//    });
+    module.directive('uiAceStatusbar', function () {
+        return  {
+            transclude: true,
+            template: '<div class="status" ng-transclude></div>',
+            link: function (scope, elm, attrs) {
+                var StatusBar = ace.require('ace/ext/statusbar').StatusBar,
+                    statusbar = new StatusBar(scope.editor, elm[0]);
+            }
+        };
+    });
 
-})();
+}());

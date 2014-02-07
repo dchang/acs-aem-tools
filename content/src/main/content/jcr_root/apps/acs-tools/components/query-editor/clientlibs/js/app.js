@@ -1,3 +1,5 @@
+/*global angular: false, ace: false */
+
 (function() {
 
     'use strict';
@@ -11,4 +13,4 @@
         'qeDirectives'
     ]);
 
-})();
+}());
