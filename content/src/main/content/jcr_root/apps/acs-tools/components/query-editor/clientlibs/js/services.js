@@ -23,9 +23,10 @@
                 var nthCall = 0;
                 return function () { // intercepting fn
                     var that = this,
-                        argz = arguments;
+                        argz = arguments,
+                        later;
                     nthCall++;
-                    var later = (function (version) {
+                    later = (function (version) {
                         return function () {
                             if (version === nthCall) {
                                 return fn.apply(that, argz);

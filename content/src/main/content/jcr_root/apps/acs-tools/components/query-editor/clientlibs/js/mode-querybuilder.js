@@ -1,4 +1,4 @@
-/*global angular: false, ace: false */
+/*global ace: false */
 
 ace.define('ace/mode/querybuilder', function (require, exports, module) {
 
@@ -6,14 +6,11 @@ ace.define('ace/mode/querybuilder', function (require, exports, module) {
         TextMode = require("ace/mode/text").Mode,
         QueryBuilderHighlightRules = require("ace/mode/querybuilder_highlight_rules").QueryBuilderHighlightRules;
 
-    var Mode = function () {
+    function Mode() {
         this.HighlightRules = QueryBuilderHighlightRules;
-    };
-    oop.inherits(Mode, TextMode);
+    }
 
-    (function () {
-        this.$id = "ace/mode/querybuilder";
-    }).call(Mode.prototype);
+    oop.inherits(Mode, TextMode);
 
     exports.Mode = Mode;
 });
@@ -23,7 +20,7 @@ ace.define('ace/mode/querybuilder_highlight_rules', function (require, exports, 
     var oop = require("ace/lib/oop"),
         TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
 
-    var QueryBuilderHighlightRules = function () {
+    function QueryBuilderHighlightRules() {
 
         var keywordMapper = this.createKeywordMapper({
             "variable.language": "orderby|orderby.sort|p.hits|p.limit|p.nodedepth|p.offset|" + // General
@@ -47,16 +44,16 @@ ace.define('ace/mode/querybuilder_highlight_rules', function (require, exports, 
             "start": [
                 {
                     token: "comment",
-                    regex: /#.*$/
+                    regex: /(^|\s)(#[\w\W]*)$/
                 },
                 {
                     token: "keyword.operator",
-                    regex: /=/,
+                    regex: /\=/,
                     next: "value"
                 },
                 {
                     token: keywordMapper,
-                    regex: /^[^=]*/
+                    regex: /^\s*([\w\.]*)/
                 },
                 {
                     defaultToken: "identifier"

@@ -33,7 +33,7 @@
 
             function params(source) {
                 var o = {};
-                source.replace(/(.*)=(.*)/gi, function ($0, $1, $2) {
+                source.replace(/^\s*(\S*)\s*=\s*(\S*)\s*$/gm, function ($0, $1, $2) {
                     o[$1] = $2;
                 });
                 return o;
