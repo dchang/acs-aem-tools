@@ -9,6 +9,11 @@
     float: left;
 }
 
+.ace_editor .link {
+    border-bottom: 1px solid #E6DB74 !important;
+    position: relative;
+}
+
 /* statusbar */
 
 footer {

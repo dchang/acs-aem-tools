@@ -50,7 +50,8 @@
 
         <pre ui-ace="{
           mode: 'json',
-          theme: 'monokai'
+          theme: 'monokai',
+          onLoad: initOutput
         }" ng-model="json" readonly="true"></pre>
 
     </div>
