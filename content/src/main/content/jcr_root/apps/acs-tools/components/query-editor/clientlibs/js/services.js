@@ -4,13 +4,17 @@
 
     'use strict';
 
-    var module = angular.module('qeServices', ['ngResource']);
+    var module = angular.module('qeServices', []);
 
-    module.factory('QueryService', ['$resource', '$http',
-        function ($resource, $http) {
-            return $resource('/bin/querybuilder.json', {}, {
-                query: {method: 'GET', params: {}}
-            });
+    module.factory('QueryService', ['$http',
+        function ($http) {
+            return {
+                query: function(params, success) {
+                    return $http.get('/bin/querybuilder.json', {
+                        params: params
+                    }).success(success);
+                }
+            };
         }
     ]);
 
