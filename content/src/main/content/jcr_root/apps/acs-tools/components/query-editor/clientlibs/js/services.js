@@ -9,10 +9,10 @@
     module.factory('QueryService', ['$http',
         function ($http) {
             return {
-                query: function(params, success) {
+                query: function(params) {
                     return $http.get('/bin/querybuilder.json', {
                         params: params
-                    }).success(success);
+                    });
                 }
             };
         }

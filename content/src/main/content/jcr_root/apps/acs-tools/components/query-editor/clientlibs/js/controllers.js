@@ -93,11 +93,14 @@
             $scope.refresh = debounce(function () {
                 var time = new Date().getTime();
                 $scope.status.requesting = true;
-                QueryService.query(params($scope.source), function (resp) {
-                    $scope.json = angular.toJson(resp, true);
-                    $scope.status.requesting = false;
-                    $scope.status.duration = new Date().getTime() - time;
-                });
+                QueryService.query(params($scope.source)).
+                    then(function (resp) {
+                        $scope.json = angular.toJson(resp, true);
+                    }).
+                    finally(function() {
+                        $scope.status.requesting = false;
+                        $scope.status.duration = new Date().getTime() - time;
+                    });
 
             }, 500);
 
