@@ -6,12 +6,20 @@
 
     var module = angular.module('qeServices', []);
 
-    module.factory('QueryService', ['$http',
+    module.factory('Crx', ['$http',
         function ($http) {
             return {
                 query: function(params) {
                     return $http.get('/bin/querybuilder.json', {
                         params: params
+                    });
+                },
+                nodetypes: function() {
+                    return $http.get('/crx/de/nodetypes.jsp');
+                },
+                filesearch: function(name) {
+                    return $http.get('/crx/de/filesearch.jsp', {
+                        params: { name: name }
                     });
                 }
             };

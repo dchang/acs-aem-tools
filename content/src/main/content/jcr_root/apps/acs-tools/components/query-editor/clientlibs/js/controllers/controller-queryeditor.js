@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('qeControllers', []).
-    controller('QueryEditorCtrl', ['$scope', 'QueryService', 'debounce',
-        function ($scope, QueryService, debounce) {
+    controller('QueryEditorCtrl', ['$scope', 'Crx', 'debounce',
+        function ($scope, Crx, debounce) {
 
             $scope.running = true;
 
@@ -31,7 +31,7 @@ angular.module('qeControllers', []).
             $scope.refresh = debounce(function () {
                 var time = new Date().getTime();
                 $scope.status.requesting = true;
-                QueryService.query(params($scope.source)).
+                Crx.query(params($scope.source)).
                     then(function (resp) {
                         $scope.json = angular.toJson(resp, true);
                     }).

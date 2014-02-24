@@ -5,7 +5,7 @@
 angular.module('qeControllers').
     controller('QueryOutputCtrl', ['$scope',
         function ($scope) {
-            $scope.initOutput = function (editor) {
+            $scope.initEditor = function (editor) {
                 var Range = ace.require("ace/range").Range, markerId;
                 var event = ace.require("ace/lib/event");
 

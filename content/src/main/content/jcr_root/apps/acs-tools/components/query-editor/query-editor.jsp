@@ -51,7 +51,7 @@
         <pre id="ace-output" ui-ace="{
           mode: 'json',
           theme: 'monokai',
-          onLoad: initOutput
+          onLoad: initEditor
         }" readonly="true" ng-model="$parent.json" ng-controller="QueryOutputCtrl"></pre>
 
   </div>
@@ -63,5 +63,6 @@
 </footer>
 
 <cq:includeClientLib js="query-editor.app"/>
+
 </body>
 </html>
