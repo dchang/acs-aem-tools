@@ -21,45 +21,45 @@
 <!doctype html>
 <html ng-app="qeApp">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Query Editor | ACS AEM Tools</title>
+  <title>Query Editor | ACS AEM Tools</title>
 
-    <cq:includeClientLib css="query-editor.app"/>
+  <cq:includeClientLib css="query-editor.app"/>
 </head>
 
 <body ng-controller="QueryEditorCtrl" ng-init="running = true; refresh()">
 
 <header class="top">
-    <div class="logo">
-        <span><a href="/"><i class="icon-marketingcloud medium"></i></a></span>
-        <span ng-hide="running"><span class="icon-spinner spinner medium"></span></span>
-    </div>
+  <div class="logo">
+    <span><a href="/"><i class="icon-marketingcloud medium"></i></a></span>
+    <span ng-hide="running"><span class="icon-spinner spinner medium"></span></span>
+  </div>
 </header>
 
 <div class="page" role="main">
-    <div class="content">
+  <div class="content">
 
-        <pre ui-ace="{
+        <pre id="ace-input" ui-ace="{
           mode: 'querybuilder',
           theme: 'monokai',
           onLoad: initEditor,
-          onChange: refresh
-        }" ng-model="source"></pre>
+          onChange: $parent.refresh
+        }" ng-model="$parent.source" ng-controller="QueryInputCtrl"></pre>
 
-        <pre ui-ace="{
+        <pre id="ace-output" ui-ace="{
           mode: 'json',
           theme: 'monokai',
           onLoad: initOutput
-        }" ng-model="json" readonly="true"></pre>
+        }" readonly="true" ng-model="$parent.json" ng-controller="QueryOutputCtrl"></pre>
 
-    </div>
+  </div>
 </div>
 
-<footer ui-ace-statusbar="{editor:'test'}">
-    <span ng-show="status.requesting" class="loader"></span>
-    <span ng-hide="status.requesting">Query took {{status.duration / 1000 | number}} seconds</span>
+<footer ui-ace-statusbar="#ace-input">
+  <span ng-show="status.requesting" class="loader"></span>
+  <span ng-hide="status.requesting">Query took {{status.duration / 1000 | number}} seconds</span>
 </footer>
 
 <cq:includeClientLib js="query-editor.app"/>

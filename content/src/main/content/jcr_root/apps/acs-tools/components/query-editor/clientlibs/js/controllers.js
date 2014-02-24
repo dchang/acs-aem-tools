@@ -23,14 +23,44 @@
 
             $scope.json = '{}';
 
+            function params(source) {
+                var o = {};
+                source.replace(/^\s*(\S*)\s*=\s*(\S*)\s*$/gm, function ($0, $1, $2) {
+                    o[$1] = $2;
+                });
+                return o;
+            }
+
+            $scope.refresh = debounce(function () {
+                var time = new Date().getTime();
+                $scope.status.requesting = true;
+                QueryService.query(params($scope.source)).
+                    then(function (resp) {
+                        $scope.json = angular.toJson(resp, true);
+                    }).
+                    finally(function() {
+                        $scope.status.requesting = false;
+                        $scope.status.duration = new Date().getTime() - time;
+                    });
+
+            }, 500);
+
+        }
+    ]);
+
+    module.controller('QueryInputCtrl', ['$scope',
+        function ($scope) {
             $scope.initEditor = function (editor) {
-                $scope.editor = editor;
                 editor.setOptions({
                     enableBasicAutocompletion: true,
                     enableSnippets: true
                 });
             };
+        }
+    ]);
 
+    module.controller('QueryOutputCtrl', ['$scope',
+        function ($scope) {
             $scope.initOutput = function (editor) {
                 var Range = ace.require("ace/range").Range, markerId;
                 var event = ace.require("ace/lib/event");
@@ -81,29 +111,6 @@
                     editor.session.removeMarker(markerId);
                 });
             };
-
-            function params(source) {
-                var o = {};
-                source.replace(/^\s*(\S*)\s*=\s*(\S*)\s*$/gm, function ($0, $1, $2) {
-                    o[$1] = $2;
-                });
-                return o;
-            }
-
-            $scope.refresh = debounce(function () {
-                var time = new Date().getTime();
-                $scope.status.requesting = true;
-                QueryService.query(params($scope.source)).
-                    then(function (resp) {
-                        $scope.json = angular.toJson(resp, true);
-                    }).
-                    finally(function() {
-                        $scope.status.requesting = false;
-                        $scope.status.duration = new Date().getTime() - time;
-                    });
-
-            }, 500);
-
         }
     ]);
 
