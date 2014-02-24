@@ -13,22 +13,48 @@ angular.module('qeControllers').
                     enableSnippets: true
                 });
 
+                function filesearch(prefix, callback) {
+                    Crx.filesearch(prefix).then(function(resp) {
+                        var items = [];
+                        angular.forEach(resp.data, function(value) {
+                            items.push({
+                                value: value['jcr:path'],
+                                meta: 'filesearch'
+                            });
+                        });
+                        if(items.length) callback(null, items);
+                    });
+                }
+
+                function typesearch(prefix, callback) {
+                    if($scope.nodetypes) {
+                        callback(null, $scope.nodetypes);
+                    } else {
+                        Crx.nodetypes().then(function(resp) {
+                            var items = [];
+                            angular.forEach(resp.data, function(value, key) {
+                                items.push({
+                                    value: key,
+                                    meta: 'nodetype'
+                                });
+                            });
+                            $scope.nodetypes = items;
+                            callback(null, $scope.nodetypes);
+                        });
+                    }
+                }
+
                 langTools.addCompleter({
                     getCompletions: function(editor, session, pos, prefix, callback) {
-                        console.log(editor.session.getLine(pos.row), prefix);
+                        var line = editor.session.getLine(pos.row);
 
-                        Crx.filesearch(prefix).
-                            then(function(resp) {
-                                var items = [];
-                                angular.forEach(resp.data, function(res) {
-                                    items.push({
-                                        name: res['jcr:name'],
-                                        value: res['jcr:path'],
-                                        meta: 'filesearch'
-                                    });
-                                });
-                                callback(null, items);
-                            });
+                        if(/path/.exec(line)) {
+                            filesearch(prefix, callback);
+                        } else if(/type/.exec(line)) {
+                            typesearch(prefix, callback);
+                        } else if(/^[^=]*$/.exec(line)) {
+                            callback(null, []);
+                        }
                     }
                 });
             };
