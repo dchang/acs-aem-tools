@@ -1,65 +1,9 @@
 /*global angular: false, ace: false */
 
-(function () {
+'use strict';
 
-    'use strict';
-
-    var module = angular.module('qeControllers', []);
-
-    module.controller('QueryEditorCtrl', ['$scope', 'QueryService', 'debounce',
-        function ($scope, QueryService, debounce) {
-
-            $scope.running = true;
-
-            $scope.status = {
-                requesting: false,
-                duration: 0
-            };
-
-            $scope.source = 'type=nt:file\n' +
-                'nodename=*.jar\n' +
-                'orderby=@jcr:content/jcr:lastModified\n' +
-                'orderby.sort=desc';
-
-            $scope.json = '{}';
-
-            function params(source) {
-                var o = {};
-                source.replace(/^\s*(\S*)\s*=\s*(\S*)\s*$/gm, function ($0, $1, $2) {
-                    o[$1] = $2;
-                });
-                return o;
-            }
-
-            $scope.refresh = debounce(function () {
-                var time = new Date().getTime();
-                $scope.status.requesting = true;
-                QueryService.query(params($scope.source)).
-                    then(function (resp) {
-                        $scope.json = angular.toJson(resp, true);
-                    }).
-                    finally(function() {
-                        $scope.status.requesting = false;
-                        $scope.status.duration = new Date().getTime() - time;
-                    });
-
-            }, 500);
-
-        }
-    ]);
-
-    module.controller('QueryInputCtrl', ['$scope',
-        function ($scope) {
-            $scope.initEditor = function (editor) {
-                editor.setOptions({
-                    enableBasicAutocompletion: true,
-                    enableSnippets: true
-                });
-            };
-        }
-    ]);
-
-    module.controller('QueryOutputCtrl', ['$scope',
+angular.module('qeControllers').
+    controller('QueryOutputCtrl', ['$scope',
         function ($scope) {
             $scope.initOutput = function (editor) {
                 var Range = ace.require("ace/range").Range, markerId;
@@ -113,5 +57,3 @@
             };
         }
     ]);
-
-}());

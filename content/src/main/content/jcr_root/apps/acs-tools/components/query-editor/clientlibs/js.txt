@@ -4,6 +4,11 @@ mode-querybuilder.js
 snippets-querybuilder.js
 
 app.js
-controllers.js
 services.js
 directives.js
+
+#base=js/controllers
+
+controller-queryeditor.js
+controller-inputeditor.js
+controller-outputeditor.js
