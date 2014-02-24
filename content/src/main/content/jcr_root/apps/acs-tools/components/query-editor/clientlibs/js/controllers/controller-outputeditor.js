@@ -1,13 +1,14 @@
 /*global angular: false, ace: false */
-
-'use strict';
+/*jslint regexp: false */
 
 angular.module('qeControllers').
     controller('QueryOutputCtrl', ['$scope',
         function ($scope) {
+            'use strict';
+
             $scope.initEditor = function (editor) {
-                var Range = ace.require("ace/range").Range, markerId;
-                var event = ace.require("ace/lib/event");
+                var Range = ace.require("ace/range").Range,
+                    event = ace.require("ace/lib/event"), markerId;
 
                 editor.setOptions({
                     enableMultiselect: false
@@ -24,27 +25,26 @@ angular.module('qeControllers').
                 }
 
                 editor.on("click", function(e) {
-                    if(!e.domEvent.metaKey) return;
+                    if(!e.domEvent.metaKey) { return; }
 
-                    var token = getToken(e);
+                    var token = getToken(e), path;
 
                     if(linkable(token)) {
-                        var re = /^"(.*)"/;
-                        var path = re.exec(token.value)[1];
+                        path = /^"(.*)"/.exec(token.value)[1];
                         window.open("/crx/de/index.jsp#" + path, "crxde");
                     }
                 });
 
                 editor.on("mousemove", function(e) {
-                    if(!e.domEvent.metaKey) return;
+                    if(!e.domEvent.metaKey) { return; }
 
                     e.editor.session.removeMarker(markerId);
 
-                    var token = getToken(e);
+                    var token = getToken(e), pos, range;
 
                     if(linkable(token)) {
-                        var pos = e.getDocumentPosition();
-                        var range = new Range(pos.row, token.start, pos.row, token.start + token.value.length);
+                        pos = e.getDocumentPosition();
+                        range = new Range(pos.row, token.start, pos.row, token.start + token.value.length);
 
                         markerId = e.editor.session.addMarker(range, 'link');
                     }

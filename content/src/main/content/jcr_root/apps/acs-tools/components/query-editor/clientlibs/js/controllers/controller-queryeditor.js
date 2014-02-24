@@ -1,10 +1,9 @@
 /*global angular: false, ace: false */
 
-'use strict';
-
 angular.module('qeControllers', []).
     controller('QueryEditorCtrl', ['$scope', 'Crx', 'debounce',
         function ($scope, Crx, debounce) {
+            'use strict';
 
             $scope.running = true;
 
@@ -34,8 +33,7 @@ angular.module('qeControllers', []).
                 Crx.query(params($scope.source)).
                     then(function (resp) {
                         $scope.json = angular.toJson(resp.data, true);
-                    }).
-                    finally(function() {
+                    })['finally'](function() {
                         $scope.status.requesting = false;
                         $scope.status.duration = new Date().getTime() - time;
                     });

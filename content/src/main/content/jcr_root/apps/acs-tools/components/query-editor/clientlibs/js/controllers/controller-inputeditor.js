@@ -1,10 +1,11 @@
 /*global angular: false, ace: false */
-
-'use strict';
+/*jslint regexp: false */
 
 angular.module('qeControllers').
     controller('QueryInputCtrl', ['$scope', 'Crx',
         function ($scope, Crx) {
+            'use strict';
+
             $scope.initEditor = function (editor) {
                 var langTools = ace.require("ace/ext/language_tools");
 
@@ -22,7 +23,7 @@ angular.module('qeControllers').
                                 meta: 'filesearch'
                             });
                         });
-                        if(items.length) callback(null, items);
+                        if(items.length) { callback(null, items); }
                     });
                 }
 
@@ -52,7 +53,7 @@ angular.module('qeControllers').
                             filesearch(prefix, callback);
                         } else if(/type/.exec(line)) {
                             typesearch(prefix, callback);
-                        } else if(/^[^=]*$/.exec(line)) {
+                        } else if(/^[^=]$/.exec(line)) {
                             callback(null, []);
                         }
                     }
