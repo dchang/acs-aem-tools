@@ -33,7 +33,7 @@ angular.module('qeControllers', []).
                 $scope.status.requesting = true;
                 Crx.query(params($scope.source)).
                     then(function (resp) {
-                        $scope.json = angular.toJson(resp, true);
+                        $scope.json = angular.toJson(resp.data, true);
                     }).
                     finally(function() {
                         $scope.status.requesting = false;
