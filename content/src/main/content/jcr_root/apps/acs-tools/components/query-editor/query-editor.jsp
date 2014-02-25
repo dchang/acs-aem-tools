@@ -46,6 +46,15 @@
     <a href="<%= currentPage.getPath() %>.html">Query Editor</a>
   </nav>
 
+  <div class="drawer theme-dark">
+    <label><input type="checkbox" ng-model="autoQuery" ng-change="refresh()"><span>Auto Query</span></label>
+    &nbsp;
+    <button class="primary" ng-click="query()" ng-disabled="autoQuery">
+      <span ng-show="!status.requesting">Run Query</span>
+      <span ng-show="status.requesting">Querying...</span>
+    </button>
+  </div>
+
 </header>
 
 <div class="page" role="main">

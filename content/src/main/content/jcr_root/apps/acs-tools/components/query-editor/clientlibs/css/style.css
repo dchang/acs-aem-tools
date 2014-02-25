@@ -30,8 +30,14 @@
 }
 
 .ace_editor .link {
-    border-bottom: 1px solid #E6DB74 !important;
+    border-bottom: 1px solid #6f0 !important;
     position: relative;
+}
+
+/* header */
+
+header > .drawer > button {
+    margin-top: 7px;
 }
 
 /* statusbar */

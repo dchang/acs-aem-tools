@@ -27,6 +27,8 @@ angular.module('qeControllers').
 
             $scope.running = true;
 
+            $scope.autoQuery = true;
+
             $scope.status = {
                 requesting: false,
                 duration: 0
@@ -47,7 +49,7 @@ angular.module('qeControllers').
                 return o;
             }
 
-            $scope.refresh = debounce(function () {
+            $scope.query = function() {
                 var time = new Date().getTime();
                 $scope.status.requesting = true;
                 Crx.query(params($scope.source)).
@@ -57,7 +59,12 @@ angular.module('qeControllers').
                     $scope.status.requesting = false;
                     $scope.status.duration = new Date().getTime() - time;
                 });
+            };
 
+            $scope.refresh = debounce(function () {
+                if($scope.autoQuery) {
+                    $scope.query();
+                }
             }, 500);
 
         }
