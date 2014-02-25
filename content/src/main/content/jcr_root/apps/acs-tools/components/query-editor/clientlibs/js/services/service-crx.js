@@ -20,18 +20,25 @@
 
 /*global angular: false, ace: false */
 
-angular.module('qeDirectives').
-    directive('uiAceStatusbar', function () {
-        'use strict';
+angular.module('qeServices').
+    factory('Crx', ['$http',
+        function ($http) {
+            'use strict';
 
-        return  {
-            transclude: true,
-            template: '<div class="status" ng-transclude></div>',
-            link: function (scope, elm, attrs) {
-                var StatusBar = ace.require('ace/ext/statusbar').StatusBar,
-                    aceEditor = angular.element(attrs.uiAceStatusbar),
-                    statusbar = new StatusBar(ace.edit(aceEditor[0]), elm[0]);
-            }
-        };
-    });
-
+            return {
+                query: function(params) {
+                    return $http.get('/bin/querybuilder.json', {
+                        params: params
+                    });
+                },
+                nodetypes: function() {
+                    return $http.get('/crx/de/nodetypes.jsp');
+                },
+                filesearch: function(name) {
+                    return $http.get('/crx/de/filesearch.jsp', {
+                        params: { name: name }
+                    });
+                }
+            };
+        }
+    ]);

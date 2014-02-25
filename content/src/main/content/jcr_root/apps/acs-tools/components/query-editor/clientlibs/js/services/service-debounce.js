@@ -1,34 +1,14 @@
+/*
+ * debounce from https://github.com/angular/angular.js/issues/2690
+ */
+
 /*global angular: false, ace: false */
 
-(function () {
-
-    'use strict';
-
-    var module = angular.module('qeServices', []);
-
-    module.factory('Crx', ['$http',
-        function ($http) {
-            return {
-                query: function(params) {
-                    return $http.get('/bin/querybuilder.json', {
-                        params: params
-                    });
-                },
-                nodetypes: function() {
-                    return $http.get('/crx/de/nodetypes.jsp');
-                },
-                filesearch: function(name) {
-                    return $http.get('/crx/de/filesearch.jsp', {
-                        params: { name: name }
-                    });
-                }
-            };
-        }
-    ]);
-
-    // debounce from https://github.com/angular/angular.js/issues/2690
-    module.factory('debounce', ['$timeout',
+angular.module('qeServices').
+    factory('debounce', ['$timeout',
         function ($timeout) {
+            'use strict';
+
             return function (fn, timeout, apply) { // debounce fn
                 timeout = angular.isUndefined(timeout) ? 0 : timeout;
                 apply = angular.isUndefined(apply) ? true : apply; // !!default is true! most suitable to my experience
@@ -50,5 +30,3 @@
             };
         }
     ]);
-
-}());
