@@ -20,7 +20,7 @@
 
 /*global angular: false, ace: false */
 
-(function() {
+(function () {
 
     'use strict';
 
@@ -28,7 +28,7 @@
 
     angular.module('qeControllers', []);
     angular.module('qeServices', []);
-    angular.module('qeDirectives', [])
+    angular.module('qeDirectives', []);
 
     angular.module('qeApp', [
         'ui.ace',

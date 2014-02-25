@@ -53,10 +53,10 @@ angular.module('qeControllers').
                 Crx.query(params($scope.source)).
                     then(function (resp) {
                         $scope.json = angular.toJson(resp.data, true);
-                    })['finally'](function() {
-                        $scope.status.requesting = false;
-                        $scope.status.duration = new Date().getTime() - time;
-                    });
+                    })['finally'](function () {
+                    $scope.status.requesting = false;
+                    $scope.status.duration = new Date().getTime() - time;
+                });
 
             }, 500);
 

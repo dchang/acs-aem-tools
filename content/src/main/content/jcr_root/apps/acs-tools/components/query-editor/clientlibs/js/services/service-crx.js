@@ -21,20 +21,25 @@
 /*global angular: false, ace: false */
 
 angular.module('qeServices').
-    factory('Crx', ['$http',
-        function ($http) {
+    factory('Crx', ['$http', '$q',
+        function ($http, $q) {
             'use strict';
 
+            var canceler = $q.defer();
+
             return {
-                query: function(params) {
+                query: function (params) {
+                    canceler.resolve();
+                    canceler = $q.defer();
                     return $http.get('/bin/querybuilder.json', {
-                        params: params
+                        params: params,
+                        timeout: canceler.promise
                     });
                 },
-                nodetypes: function() {
+                nodetypes: function () {
                     return $http.get('/crx/de/nodetypes.jsp');
                 },
-                filesearch: function(name) {
+                filesearch: function (name) {
                     return $http.get('/crx/de/filesearch.jsp', {
                         params: { name: name }
                     });

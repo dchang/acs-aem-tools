@@ -44,25 +44,29 @@ angular.module('qeControllers').
                     return token.type === "string" && re.test(token.value);
                 }
 
-                editor.on("click", function(e) {
-                    if(!e.domEvent.metaKey) { return; }
+                editor.on("click", function (e) {
+                    if (!e.domEvent.metaKey) {
+                        return;
+                    }
 
                     var token = getToken(e), path;
 
-                    if(linkable(token)) {
+                    if (linkable(token)) {
                         path = /^"(.*)"/.exec(token.value)[1];
                         window.open("/crx/de/index.jsp#" + path, "crxde");
                     }
                 });
 
-                editor.on("mousemove", function(e) {
-                    if(!e.domEvent.metaKey) { return; }
+                editor.on("mousemove", function (e) {
+                    if (!e.domEvent.metaKey) {
+                        return;
+                    }
 
                     e.editor.session.removeMarker(markerId);
 
                     var token = getToken(e), pos, range;
 
-                    if(linkable(token)) {
+                    if (linkable(token)) {
                         pos = e.getDocumentPosition();
                         range = new Range(pos.row, token.start, pos.row, token.start + token.value.length);
 
@@ -71,7 +75,7 @@ angular.module('qeControllers').
 
                 });
 
-                event.addListener(document, "keyup", function() {
+                event.addListener(document, "keyup", function () {
                     editor.session.removeMarker(markerId);
                 });
             };

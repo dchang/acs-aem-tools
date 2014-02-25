@@ -35,25 +35,27 @@ angular.module('qeControllers').
                 });
 
                 function filesearch(prefix, callback) {
-                    Crx.filesearch(prefix).then(function(resp) {
+                    Crx.filesearch(prefix).then(function (resp) {
                         var items = [];
-                        angular.forEach(resp.data, function(value) {
+                        angular.forEach(resp.data, function (value) {
                             items.push({
                                 value: value['jcr:path'],
                                 meta: 'filesearch'
                             });
                         });
-                        if(items.length) { callback(null, items); }
+                        if (items.length) {
+                            callback(null, items);
+                        }
                     });
                 }
 
                 function typesearch(prefix, callback) {
-                    if($scope.nodetypes) {
+                    if ($scope.nodetypes) {
                         callback(null, $scope.nodetypes);
                     } else {
-                        Crx.nodetypes().then(function(resp) {
+                        Crx.nodetypes().then(function (resp) {
                             var items = [];
-                            angular.forEach(resp.data, function(value, key) {
+                            angular.forEach(resp.data, function (value, key) {
                                 items.push({
                                     value: key,
                                     meta: 'nodetype'
@@ -66,14 +68,14 @@ angular.module('qeControllers').
                 }
 
                 langTools.addCompleter({
-                    getCompletions: function(editor, session, pos, prefix, callback) {
+                    getCompletions: function (editor, session, pos, prefix, callback) {
                         var line = editor.session.getLine(pos.row);
 
-                        if(/path/.exec(line)) {
+                        if (/path/.exec(line)) {
                             filesearch(prefix, callback);
-                        } else if(/type/.exec(line)) {
+                        } else if (/type/.exec(line)) {
                             typesearch(prefix, callback);
-                        } else if(/^[^=]$/.exec(line)) {
+                        } else if (/^[^=]$/.exec(line)) {
                             callback(null, []);
                         }
                     }
