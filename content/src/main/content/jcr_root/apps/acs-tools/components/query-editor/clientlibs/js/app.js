@@ -27,6 +27,7 @@
     ace.require("ace/ext/language_tools");
 
     angular.module('qeApp', [
+        'ngAnimate',
         'ui.ace',
         'qeControllers',
         'qeServices',

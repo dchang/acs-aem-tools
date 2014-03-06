@@ -41,7 +41,7 @@
 
         <div class="logo">
             <a href="/"><i class="icon-marketingcloud medium"></i></a>
-            <span ng-hide="running" class="spinner icon-spinner spinner medium"></span>
+            <span ng-hide="running" class="spinner icon-spinner medium"></span>
         </div>
 
         <nav class="crumbs">
@@ -61,22 +61,27 @@
     </header>
 
     <div class="page" role="main">
-        <div class="content">
 
+        <div class="panel">
         <pre id="ace-input" ui-ace="{
           mode: 'querybuilder',
           theme: 'vibrant_ink',
           onLoad: initEditor,
           onChange: $parent.refresh
         }" ng-model="$parent.source" ng-controller="QueryInputCtrl"></pre>
+        </div>
 
+        <div class="panel">
         <pre id="ace-output" ui-ace="{
           mode: 'json',
           theme: 'vibrant_ink',
           onLoad: initEditor
         }" readonly="true" ng-model="$parent.json" ng-controller="QueryOutputCtrl"></pre>
-
+            <div ng-show="status.requesting" class="modal-backdrop">
+                <div class="loader"><span class="spinner icon-spinner large"></span>Querying...</div>
+            </div>
         </div>
+
     </div>
 
     <footer ui-ace-statusbar="#ace-input">

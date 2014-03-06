@@ -22,16 +22,59 @@
     padding-bottom: 1.5rem;
 }
 
-.ace_editor {
-    margin: 0;
+.panel {
+    position: relative;
     width: 50%;
     height: 100%;
     float: left;
 }
 
+.ace_editor {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
 .ace_editor .link {
     border-bottom: 1px solid #6f0 !important;
     position: relative;
+}
+
+/* panel loader */
+
+.panel > .modal-backdrop {
+    position: absolute;
+    opacity: 1;
+    -webkit-transition: all linear 0.2s;
+    -moz-transition: all linear 0.2s;
+    -ms-transition: all linear 0.2s;
+    -o-transition: all linear 0.2s;
+    transition: all linear 0.2s;
+}
+
+.panel > .modal-backdrop.ng-hide-add,
+.panel > .modal-backdrop.ng-hide-remove {
+    display: block !important;
+}
+
+.panel > .modal-backdrop.ng-hide {
+    opacity: 0;
+}
+
+.panel > .modal-backdrop > .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin: -100px 0 0 -100px;
+    text-align: center;
+    color: #fff;
+}
+
+.panel > .modal-backdrop > .loader > .spinner {
+    display: block;
+    margin: 0 auto 10px;
 }
 
 /* header */
@@ -66,7 +109,9 @@ footer > .ace_status-indicator {
     float: right;
 }
 
-.loader {
+/* footer loader */
+
+footer > .loader {
     display: inline-block;
     width: 8px;
     height: 8px;
@@ -75,6 +120,7 @@ footer > .ace_status-indicator {
     border: 2px solid rgba(255, 255, 255, .2);
     border-top-color: #fff;
     -webkit-animation: rotate 0.5s infinite linear;
+    animation: rotate 0.5s infinite linear;
 }
 
 @-webkit-keyframes rotate {
@@ -83,5 +129,20 @@ footer > .ace_status-indicator {
     }
     to {
         -webkit-transform: translate(2px, 2px) rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    from {
+        -moz-transform: translate(2px, 2px) rotate(0deg);
+        -ms-transform: translate(2px, 2px) rotate(0deg);
+        -o-transform: translate(2px, 2px) rotate(0deg);
+        transform: translate(2px, 2px) rotate(0deg);
+    }
+    to {
+        -moz-transform: translate(2px, 2px) rotate(360deg);
+        -ms-transform: translate(2px, 2px) rotate(360deg);
+        -o-transform: translate(2px, 2px) rotate(360deg);
+        transform: translate(2px, 2px) rotate(360deg);
     }
 }
