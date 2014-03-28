@@ -24,13 +24,18 @@ angular.module('qeDirectives').
     directive('uiAceStatusbar', function () {
         'use strict';
 
-        return  {
+        return {
             transclude: true,
             template: '<div class="status" ng-transclude></div>',
             link: function (scope, elm, attrs) {
-                var StatusBar = ace.require('ace/ext/statusbar').StatusBar,
-                    aceEditor = angular.element(attrs.uiAceStatusbar),
-                    statusbar = new StatusBar(ace.edit(aceEditor[0]), elm[0]);
+                ace.require('ace/config')
+                    .loadModule('ace/ext/statusbar', function () {
+                        var StatusBar = ace.require('ace/ext/statusbar').StatusBar,
+                            aceEditor = ace.edit(angular.element(attrs.uiAceStatusbar)[0]),
+                            statusbar = new StatusBar(aceEditor, elm[0]);
+
+                        statusbar.updateStatus(aceEditor);
+                    });
             }
         };
     });
